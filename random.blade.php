@@ -63,7 +63,7 @@
                             <td>{{ $invoice->TotalAmt }}</td>
                             <td>{{ $invoice->Balance }}</td>
                             <td>{{ $invoice->DueDate }}</td>
-                            <td><h4><div class="label label-success">{{ $invoice->status }}</div></h4></td>
+                            <td><h4>{{ $invoice->status }}</h4></td>
                         </tr>
                         @endforeach
                         </tbody>
