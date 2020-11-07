@@ -53,10 +53,10 @@
                         @foreach ($invoices as $invoice)
 
                         <tr role="row" class="odd"><td><input type="checkbox" name="ids[]" value="269"></td>
-                            <td><a href="https://invoice.vmrllc.com/invoices/269/edit" class="">{{ $invoice->DocNumber }}</a></td>
+                            <td><a href="http://obrc.lifeh2o.net/invoices/{{ $invoice->Id }}/edit" class="">{{ $invoice->DocNumber }}</a></td>
                             @foreach ($customers as $customer)
                                 @if ($customer->Id == $invoice->CustomerRef)
-                                    <td><a href="https://invoice.vmrllc.com/clients/1">{{ $customer->FullyQualifiedName }}</a></td>
+                                    <td><a href="http://obrc.lifeh2o.net/clients/{{ $customer->Id }}">{{ $customer->FullyQualifiedName }}</a></td>
                                 @endif
                             @endforeach
                             <td>{{ $invoice->TxnDate }}</td>
