@@ -82,6 +82,29 @@
             @endforeach
         @endforeach
 
+        @foreach ($salesreceipts as $salesreceipt)
+            @foreach ($salesreceipt->Line as $salesreceiptline)
+                @if ($salesreceiptline->SalesItemLineDetail)
+                    <?php
+                    $totalamount = $salesreceipt->TotalAmt;
+                    $itemname = $salesreceiptline->SalesItemLineDetail->ItemRef;
+                    $products = app('Spinen\QuickBooks\Client')->getDataService()->Query("Select * From Item");
+
+                    if ($salesreceiptline->SalesItemLineDetail->ItemRef == '22') {
+                        $petbottle+= $salesreceiptline->SalesItemLineDetail->Qty * 12;
+                    }
+                    if ($salesreceiptline->SalesItemLineDetail->ItemRef == '23') {
+                        $petbottle+= $salesreceiptline->SalesItemLineDetail->Qty;
+                    }
+                    if ($salesreceiptline->SalesItemLineDetail->ItemRef == '24') {
+                        $glassbottle+= $salesreceiptline->SalesItemLineDetail->Qty;
+                    }
+                    ?>
+                @endif
+
+            @endforeach
+        @endforeach
+
 <br><br>
         <div class="container">
             <div class="card">
