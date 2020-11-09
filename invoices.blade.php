@@ -20,9 +20,10 @@
                 $petbottle = 0;
                 ?>
 
+                <div class="card">
                 <table class="table table-striped data-table 0DNISVd9 dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                     <thead>
-                    <tr role="row"><th align="center" valign="middle" class="head0 sorting_disabled" style="width:20px" rowspan="1" colspan="1" aria-label="">
+                    <tr role="row">
                         <th align="center" valign="middle" class="head1 sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Invoice Number : activate to sort column ascending">Invoice Number</th>
                         <th align="center" valign="middle" class="head2 sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Client Name : activate to sort column ascending">Client Name</th>
                         <th align="center" valign="middle" class="head3 sorting_desc" tabindex="0" rowspan="1" colspan="1" aria-sort="descending" aria-label="Date : activate to sort column ascending">Date</th>
@@ -36,7 +37,6 @@
                     <tbody>
                     @foreach ($invoices as $invoice)
 
-                        <tr role="row" class="odd"><td><input type="checkbox" name="ids[]" value="269"></td>
                             <td><a href="http://obrc.lifeh2o.net/invoice/{{ $invoice->DocNumber }}">{{ $invoice->DocNumber }}</a></td>
                             @foreach ($customers as $customer)
                                 @if ($customer->Id == $invoice->CustomerRef)
@@ -60,6 +60,61 @@
                 </table>
             </div>
         </div>
+        </div>
+
+        <br><br>
+
+
+
+
+
+
+
+                <div class="card">
+                    <div class="card-header"><table width="100%"><tr><td><b>Sales Receipt List:</td></tr></table></div>
+                    <div class="card-body">
+                        <div class="card">
+                        <table class="table table-striped data-table 0DNISVd9 dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                            <thead>
+                            <tr role="row">
+                                <th align="center" valign="middle" class="head1 sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Invoice Number : activate to sort column ascending">Invoice Number</th>
+                                <th align="center" valign="middle" class="head2 sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Client Name : activate to sort column ascending">Client Name</th>
+                                <th align="center" valign="middle" class="head3 sorting_desc" tabindex="0" rowspan="1" colspan="1" aria-sort="descending" aria-label="Date : activate to sort column ascending">Date</th>
+                                <th align="center" valign="middle" class="head4 sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Amount : activate to sort column ascending">Amount</th>
+                                <th align="center" valign="middle" class="head5 sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Balance : activate to sort column ascending">Balance</th>
+                                <th align="center" valign="middle" class="head6 sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Due Date : activate to sort column ascending">Due Date</th>
+                                <th align="center" valign="middle" class="head7 sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Status : activate to sort column ascending">Status</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @foreach ($salesreceipts as $salesreceipt)
+
+                                <tr role="row" class="odd">
+                                    <td><a href="http://obrc.lifeh2o.net/invoice/{{ $invoice->DocNumber }}">{{ $invoice->DocNumber }}</a></td>
+                                    @foreach ($customers as $customer)
+                                        @if ($customer->Id == $salesreceipt->CustomerRef)
+                                            <td><a href="https://app.sandbox.qbo.intuit.com/app/customerdetail?nameId={{ $customer->Id }}" target="_blank">{{ $customer->FullyQualifiedName }}</a></td>
+                                        @endif
+                                    @endforeach
+                                    <td>{{ $salesreceipt->TxnDate }}</td>
+                                    <td>{{ $salesreceipt->TotalAmt }}</td>
+                                    <td>{{ $salesreceipt->Balance }}</td>
+                                    <td>{{ $salesreceipt->DueDate }}</td>
+                                    @if ($salesreceipt->Balance != 0)
+                                        <td>Unpaid</td>
+                                    @elseif ($salesreceipt->Balance == 0)
+                                        <td>Paid?</td>
+                                    @else
+                                        <td>Unknown</td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
 
         @foreach ($invoices as $invoice)
             @foreach ($invoice->Line as $invoiceline)
@@ -106,9 +161,11 @@
         @endforeach
 
 <br><br>
-        <div class="container">
+
             <div class="card">
+                <div class="card-header"><table width="100%"><tr><td><b>OBRC Count:</td></tr></table></div>
                 <div class="card-body">
+                    <div class="card">
                     <table class="table table-striped data-table 0DNISVd9 dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                         <thead>
                         <tr role="row">
@@ -131,5 +188,6 @@
             </div>
         </div>
     </div>
-    </div>
+
+
 @endsection
